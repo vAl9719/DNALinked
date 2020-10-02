@@ -9,6 +9,11 @@ public class LinkStrand implements IDnaStrand{
         String info;
         Node next;
 
+        public Node(String str){
+            info = str;
+            next = null;
+        }
+
         public Node(String str, Node node){
             info = str;
             next = node;
@@ -61,7 +66,10 @@ public class LinkStrand implements IDnaStrand{
      */
     @Override
     public void initialize(String source) {
-
+        myFirst = new Node(source);
+        myLast = myFirst;
+        mySize = source.length();
+        myAppends = 0;
     }
 
     /**
@@ -75,14 +83,19 @@ public class LinkStrand implements IDnaStrand{
     }
 
     /**
-     * Append dna to the end of this strind.
+     * Append dna to the end of this strand and update instance variables
      *
      * @param dna is the string appended to this strand
-     * @return this strand after the data has been added
+     * @return this LinkStrand after dna has been appended and update instance variables
      */
     @Override
     public IDnaStrand append(String dna) {
-        return null;
+        myLast.next = new Node(dna, null);
+        myLast = myLast.next;
+        mySize += dna.length();
+        myAppends++;
+
+        return this;
     }
 
     /**
@@ -108,6 +121,8 @@ public class LinkStrand implements IDnaStrand{
      */
     @Override
     public IDnaStrand reverse() {
+        
+
         return null;
     }
 
