@@ -1,4 +1,10 @@
 public class LinkStrand implements IDnaStrand{
+
+    /**
+     * Node class for LinkStrand
+     * @info String is for the DNA strand
+     * @next is the pointer to the next Node presented in the LinkStrand
+     */
     private class Node {
         String info;
         Node next;
@@ -9,18 +15,41 @@ public class LinkStrand implements IDnaStrand{
         }
     }
 
+    /**
+     * Instance variables for LinkStrand
+     * @myFirst is the pointer to the first node in a linked list
+     * @myLast is the pointer to the last node in a linked list
+     * @mySize is the total number of characters in the nodes
+     * @myAppends is the number of times the append method is called (one less than the number of nodes in the linked list)
+     */
     private Node myFirst,myLast;
     private long mySize;
     private int myAppends;
 
     /**
-     * Returns the number of elements/base-pairs/nucleotides in this strand.
+     * No-argument (default) constructor
+     * Empty string
+     */
+    public LinkStrand(){
+        this("");
+    }
+
+    /**
+     * String constructor
+     * @param source represents the DNA strand
+     */
+    public LinkStrand(String source){
+        initialize(source);
+    }
+
+    /**
+     * Returns the number of characters
      *
-     * @return the number of base-pairs in this strand
+     * @return mySize, the total number of characters
      */
     @Override
     public long size() {
-        return 0;
+        return mySize;
     }
 
     /**
@@ -36,17 +65,13 @@ public class LinkStrand implements IDnaStrand{
     }
 
     /**
-     * Return this object, useful to obtain
-     * an object without knowing its type, e.g.,
-     * calling dna.getInstance() returns an IDnaStrand
-     * that will be the same concrete type as dna
      *
      * @param source is data from which object constructed
-     * @return an IDnaStrand whose .toString() method will be source
+     * @return a LinkStrand object from source
      */
     @Override
     public IDnaStrand getInstance(String source) {
-        return null;
+        return new LinkStrand(source);
     }
 
     /**
