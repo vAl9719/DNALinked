@@ -114,16 +114,25 @@ public class LinkStrand implements IDnaStrand{
     }
 
     /**
-     * Returns an IDnaStrand that is the reverse of this strand, e.g., for
-     * "CGAT" returns "TAGC"
+     * Returns an IDnaStrand that is the reverse of this strand
      *
      * @return reverse strand
      */
     @Override
     public IDnaStrand reverse() {
-        
-
-        return null;
+        StringBuilder sb = new StringBuilder(myFirst.info);
+        sb.reverse();
+        LinkStrand ret = new LinkStrand(sb.toString());
+        Node cur = myFirst.next;
+        while(cur != null){
+            sb = new StringBuilder(cur.info);
+            sb.reverse();
+            ret.myFirst = new Node(sb.toString(), ret.myFirst);
+            ret.mySize = mySize;
+            ret.myAppends = myAppends;
+            cur = cur.next;
+        }
+        return ret;
     }
 
     /**
