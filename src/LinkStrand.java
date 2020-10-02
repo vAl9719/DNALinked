@@ -25,11 +25,16 @@ public class LinkStrand implements IDnaStrand{
      * @myFirst is the pointer to the first node in a linked list
      * @myLast is the pointer to the last node in a linked list
      * @mySize is the total number of characters in the nodes
-     * @myAppends is the number of times the append method is called (one less than the number of nodes in the linked list)
+     * @myAppends is the number of times the append method is called
+     * (one less than the number of nodes in the linked list)
+     * @myIndex is the current index in the node
+     * @myLocalIndex is the value of the index within the string at a node
+     * @myCurrent is the current Node
      */
-    private Node myFirst,myLast;
+    private Node myFirst, myLast, myCurrent;
     private long mySize;
-    private int myAppends;
+    private int myAppends, myIndex, myLocalIndex;
+
 
     /**
      * No-argument (default) constructor
@@ -68,8 +73,12 @@ public class LinkStrand implements IDnaStrand{
     public void initialize(String source) {
         myFirst = new Node(source);
         myLast = myFirst;
+        myCurrent = myFirst;
         mySize = source.length();
         myAppends = 0;
+        myIndex = 0;
+        myLocalIndex = 0;
+
     }
 
     /**
@@ -138,11 +147,11 @@ public class LinkStrand implements IDnaStrand{
     /**
      * Returns the number of times append has been called.
      *
-     * @return
+     * @return the number of appends
      */
     @Override
     public int getAppendCount() {
-        return 0;
+        return myAppends;
     }
 
     /**
@@ -151,10 +160,27 @@ public class LinkStrand implements IDnaStrand{
      * @param index specifies which character will be returned
      * @return the character at index
      * @throws IndexOutOfBoundsException if index < 0 or inde >= size()
+     * (invalid index)
      */
     @Override
     public char charAt(int index) {
-        return 0;
+        if(index < 0 || index >= mySize)
+            throw new IndexOutOfBoundsException("Invalid index, greater than size or negative");
+        if(index < myIndex){
+            myCurrent = myFirst;
+            myIndex = 0;
+            myLocalIndex = 0;
+        }
+        while(myIndex != index){
+            myIndex++;
+            myLocalIndex++;
+                if(myLocalIndex >= myCurrent.info.length() && myCurrent.next != null){
+                    myLocalIndex = 0;
+                    myCurrent = myCurrent.next;
+                }
+            }
+
+        return myCurrent.info.charAt(myLocalIndex);
     }
 
 
