@@ -115,8 +115,13 @@ public class AnalysisDNA {
         // of breaks in copy
 
         String copy = mySource;
-        String results = strandSpliceBenchmark(ENZYME, splicee, strandType);
-        System.out.println(results);
+
+        for(int i = 0; i < 10; i++){
+            String results = strandSpliceBenchmark(ENZYME, splicee, strandType);
+            System.out.println(results);
+            mySource+= copy;
+        }
+
 
         System.exit(0);
     }
